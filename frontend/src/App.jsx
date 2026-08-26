@@ -43,8 +43,27 @@ const normalizeJob = (j) => {
 };
 
 export default function App() {
-  // Views: 'landing' | 'signup' | 'login' | 'dashboard'
-  const [currentView, setCurrentView] = useState('landing');
+  // Authenticated User State (Persistent Session)
+  const [currentUser, setCurrentUser] = useState(() => {
+    const savedUser = localStorage.getItem('careerplus_user');
+    const savedToken = localStorage.getItem('careerplus_jwt_token');
+    if (savedUser) {
+      try {
+        return JSON.parse(savedUser);
+      } catch (e) {
+        return null;
+      }
+    }
+    return savedToken ? { name: 'Candidate Profile', email: 'user@careerplus.io' } : null;
+  });
+
+  // Views: 'landing' | 'signup' | 'login' | 'dashboard' (Persistent Dashboard View if Logged In)
+  const [currentView, setCurrentView] = useState(() => {
+    const savedUser = localStorage.getItem('careerplus_user');
+    const savedToken = localStorage.getItem('careerplus_jwt_token');
+    return (savedUser || savedToken) ? 'dashboard' : 'landing';
+  });
+
   const [activeTab, setActiveTab] = useState('kanban'); // kanban | actions | priority | reminders | analytics
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all'); // 'all' | 'applied' | 'interviewing' | 'offered' | 'rejected'
@@ -54,12 +73,6 @@ export default function App() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [editingJob, setEditingJob] = useState(null);
   const [backendStatus, setBackendStatus] = useState('connecting'); // connecting | connected | offline
-
-  // Authenticated User State
-  const [currentUser, setCurrentUser] = useState(() => {
-    const saved = localStorage.getItem('careerplus_user');
-    return saved ? JSON.parse(saved) : null;
-  });
 
   // Candidate Resumes State
   const [userResumes, setUserResumes] = useState(() => {
