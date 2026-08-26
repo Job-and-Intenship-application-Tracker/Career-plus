@@ -12,7 +12,7 @@
     <artifactId>application-service</artifactId>
     <version>1.0.0</version>
     <name>application-service</name>
-    <description>Career Plus Application & Balance Microservice</description>
+    <description>Career Plus Application and Balance Microservice</description>
 
     <properties>
         <java.version>17</java.version>
