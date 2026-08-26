@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Filter, SlidersHorizontal, LayoutGrid, ListFilter, X } from 'lucide-react';
+import { Search, Filter, SlidersHorizontal, X } from 'lucide-react';
 
 export default function SearchBar({ searchQuery, setSearchQuery, statusFilter = 'all', setStatusFilter, sortBy = 'newest', setSortBy }) {
   return (
@@ -41,16 +41,16 @@ export default function SearchBar({ searchQuery, setSearchQuery, statusFilter = 
               onChange={(e) => setStatusFilter && setStatusFilter(e.target.value)}
               className="appearance-none bg-slate-50 border border-slate-200 hover:border-violet-300 text-slate-800 text-xs font-bold py-2.5 pl-3 pr-8 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 cursor-pointer transition-all shadow-2xs"
             >
-              <option value="all">🔍 All Statuses</option>
-              <option value="applied">🟪 Applied Column Focus</option>
-              <option value="interviewing">🟧 Interviewing Column Focus</option>
-              <option value="offered">🟩 Offered Column Focus</option>
-              <option value="rejected">🟥 Rejected Column Focus</option>
+              <option value="all">All Statuses</option>
+              <option value="applied">Applied Column Focus</option>
+              <option value="interviewing">Interviewing Column Focus</option>
+              <option value="offered">Offered Column Focus</option>
+              <option value="rejected">Rejected Column Focus</option>
             </select>
             <Filter className="w-3.5 h-3.5 text-violet-600 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
 
-          {/* Multi-Criteria Sort Select */}
+          {/* Clean Multi-Criteria Sort Select (No Icons Inside Options) */}
           <div className="relative">
             <select 
               id="sort-select"
@@ -58,36 +58,16 @@ export default function SearchBar({ searchQuery, setSearchQuery, statusFilter = 
               onChange={(e) => setSortBy && setSortBy(e.target.value)}
               className="appearance-none bg-slate-50 border border-slate-200 hover:border-violet-300 text-slate-800 text-xs font-bold py-2.5 pl-3 pr-8 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 cursor-pointer transition-all shadow-2xs"
             >
-              <option value="newest">📅 Sort: Newest First</option>
-              <option value="oldest">📅 Sort: Oldest First</option>
-              <option value="company-asc">🏢 Sort: Company (A - Z)</option>
-              <option value="company-desc">🏢 Sort: Company (Z - A)</option>
-              <option value="role-asc">💼 Sort: Job Role (A - Z)</option>
-              <option value="salary-desc">💰 Sort: Salary (Highest First)</option>
-              <option value="salary-asc">💰 Sort: Salary (Lowest First)</option>
-              <option value="priority">⚡ Sort: Priority (High First)</option>
+              <option value="newest">Sort: Newest First</option>
+              <option value="oldest">Sort: Oldest First</option>
+              <option value="company-asc">Sort: Company (A - Z)</option>
+              <option value="company-desc">Sort: Company (Z - A)</option>
+              <option value="role-asc">Sort: Job Role (A - Z)</option>
+              <option value="salary-desc">Sort: Salary (Highest First)</option>
+              <option value="salary-asc">Sort: Salary (Lowest First)</option>
+              <option value="priority">Sort: Priority (High First)</option>
             </select>
             <SlidersHorizontal className="w-3.5 h-3.5 text-violet-600 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-          </div>
-
-          {/* View Switcher Toggle */}
-          <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/60 ml-auto lg:ml-0">
-            <button
-              type="button"
-              className="px-2.5 py-1.5 rounded-lg bg-white shadow-xs text-violet-600 text-xs font-bold flex items-center space-x-1"
-              title="Kanban Board View"
-            >
-              <LayoutGrid className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Board</span>
-            </button>
-            <button
-              type="button"
-              className="px-2.5 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 text-xs font-semibold flex items-center space-x-1 transition-colors"
-              title="List View"
-            >
-              <ListFilter className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">List</span>
-            </button>
           </div>
 
         </div>
