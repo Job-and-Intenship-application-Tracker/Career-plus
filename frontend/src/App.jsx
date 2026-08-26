@@ -440,7 +440,7 @@ export default function App() {
 
         {/* Tab 4: Follow-ups & Notes View */}
         {activeTab === 'reminders' && (
-          <FollowUpNotesView jobs={jobs} />
+          <FollowUpNotesView jobs={jobs} onSelectJob={(job) => setSelectedJob(job)} />
         )}
 
         {/* Tab 5: Analytics & Insights View */}
