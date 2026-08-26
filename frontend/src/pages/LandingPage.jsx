@@ -20,6 +20,7 @@ export default function LandingPage({ currentUser, onNavigateDashboard, onNaviga
 
       {/* Hero Section */}
       <HeroSection 
+        currentUser={currentUser}
         onGetStarted={currentUser ? onNavigateDashboard : onNavigateSignUp}
         onLogin={currentUser ? onNavigateDashboard : onNavigateLogin}
       />

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ArrowRight, LogIn, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowRight, LogIn, CheckCircle2, ShieldCheck, Sparkles, LayoutDashboard, Briefcase } from 'lucide-react';
 
-export default function HeroSection({ onGetStarted, onLogin }) {
+export default function HeroSection({ currentUser, onGetStarted, onLogin }) {
   return (
     <section id="home" className="relative pt-32 pb-20 md:pt-44 md:pb-28 overflow-hidden bg-gradient-to-b from-violet-50/60 via-slate-50 to-white">
       
@@ -30,31 +30,58 @@ export default function HeroSection({ onGetStarted, onLogin }) {
             Organize your job hunt seamlessly in one central workspace. Track applications, schedule interviews, set follow-up reminders, and analyze your offer metrics with ease.
           </p>
 
-          {/* Prominent Action Buttons */}
+          {/* Prominent Action Buttons - Conditional for Logged-In User */}
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-            
-            {/* Get Started Button */}
-            <button
-              type="button"
-              id="hero-get-started-btn"
-              onClick={onGetStarted}
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-violet-600 hover:bg-violet-700 active:bg-violet-800 text-white font-black text-base shadow-lg shadow-violet-600/30 hover:shadow-xl hover:shadow-violet-600/40 transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 group cursor-pointer"
-            >
-              <span>Get Started Free</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            {currentUser ? (
+              <>
+                {/* Explore Dashboard Button for Logged-in Candidate */}
+                <button
+                  type="button"
+                  id="hero-explore-dashboard-btn"
+                  onClick={onGetStarted}
+                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-violet-600 hover:bg-violet-700 active:bg-violet-800 text-white font-black text-base shadow-lg shadow-violet-600/30 hover:shadow-xl hover:shadow-violet-600/40 transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 group cursor-pointer"
+                >
+                  <LayoutDashboard className="w-5 h-5" />
+                  <span>Explore Dashboard</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
 
-            {/* Login Button */}
-            <button
-              type="button"
-              id="hero-login-btn"
-              onClick={onLogin}
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-base border border-slate-300 shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center space-x-2 cursor-pointer"
-            >
-              <LogIn className="w-4.5 h-4.5 text-violet-600" />
-              <span>Login Account</span>
-            </button>
+                {/* View Applications Secondary Button */}
+                <button
+                  type="button"
+                  id="hero-view-apps-btn"
+                  onClick={onGetStarted}
+                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-base border border-slate-300 shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center space-x-2 cursor-pointer"
+                >
+                  <Briefcase className="w-4.5 h-4.5 text-violet-600" />
+                  <span>View Applications</span>
+                </button>
+              </>
+            ) : (
+              <>
+                {/* Get Started Button for New Users */}
+                <button
+                  type="button"
+                  id="hero-get-started-btn"
+                  onClick={onGetStarted}
+                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-violet-600 hover:bg-violet-700 active:bg-violet-800 text-white font-black text-base shadow-lg shadow-violet-600/30 hover:shadow-xl hover:shadow-violet-600/40 transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 group cursor-pointer"
+                >
+                  <span>Get Started Free</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
 
+                {/* Login Account Button */}
+                <button
+                  type="button"
+                  id="hero-login-btn"
+                  onClick={onLogin}
+                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-base border border-slate-300 shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center space-x-2 cursor-pointer"
+                >
+                  <LogIn className="w-4.5 h-4.5 text-violet-600" />
+                  <span>Login Account</span>
+                </button>
+              </>
+            )}
           </div>
 
           {/* Trust Badges / Social Proof */}
