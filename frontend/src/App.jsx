@@ -374,17 +374,29 @@ export default function App() {
               <p className="text-[11px] font-bold text-slate-500">Total Applications</p>
             </div>
 
-            {/* Card 6: Follow-up Due */}
-            <div className="bg-white p-4 rounded-2xl border border-indigo-200/80 shadow-2xs hover:shadow-md transition-all space-y-1.5 relative overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-indigo-600"></div>
+            {/* Card 6: Follow-up Due (Attention-Grabbing Spotlight Card) */}
+            <div 
+              onClick={() => setActiveTab('reminders')}
+              className="bg-gradient-to-br from-indigo-900 via-indigo-800 to-violet-900 text-white p-4 rounded-2xl border-2 border-indigo-400 shadow-2xl shadow-indigo-600/40 ring-4 ring-indigo-500/40 animate-pulse hover:animate-none hover:scale-[1.03] transition-all duration-300 space-y-1.5 relative overflow-hidden cursor-pointer group"
+              title="Click to view all pending recruiter follow-ups"
+            >
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-violet-400 to-fuchsia-400"></div>
+              
+              {/* Top Attention Badge Pill */}
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-extrabold uppercase tracking-wider text-indigo-700">Follow-ups</span>
-                <span className="w-7 h-7 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs">
+                <span className="text-[10px] font-black uppercase tracking-wider text-indigo-200 bg-white/20 px-2 py-0.5 rounded-full border border-white/30 flex items-center space-x-1">
+                  <span>⚡ ACTION REQUIRED</span>
+                </span>
+                <span className="w-7 h-7 rounded-xl bg-white/20 text-white flex items-center justify-center font-bold text-xs shadow-xs group-hover:rotate-12 transition-transform">
                   🔔
                 </span>
               </div>
-              <p className="text-2xl font-black text-indigo-900">{followUpDueCount}</p>
-              <p className="text-[11px] font-bold text-indigo-600">Action Due</p>
+
+              <p className="text-2.5xl font-black text-white tracking-tight">{followUpDueCount} Due</p>
+              <div className="flex items-center justify-between text-[11px] font-extrabold text-indigo-200 pt-0.5">
+                <span>Pending Recruiter Notes</span>
+                <span className="underline decoration-indigo-300 group-hover:translate-x-1 transition-transform">View →</span>
+              </div>
             </div>
 
           </div>
