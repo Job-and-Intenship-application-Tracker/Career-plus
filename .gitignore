@@ -1,0 +1,26 @@
+# Node & React Dependencies
+node_modules/
+dist/
+build/
+
+# Maven & Java Build Output
+target/
+*.class
+
+# IDE & Editor Files
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# Log Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System Files
+.DS_Store
+Thumbs.db
