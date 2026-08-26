@@ -1,9 +1,12 @@
 import React from 'react';
-import { Briefcase, LogIn, UserPlus, Sparkles, LayoutDashboard } from 'lucide-react';
+import { Briefcase, LogIn, UserPlus, Sparkles, LayoutDashboard, LogOut, User } from 'lucide-react';
 
-export default function LandingNavbar({ onNavigateDashboard, onNavigateLogin, onNavigateSignUp }) {
+export default function LandingNavbar({ currentUser, onNavigateDashboard, onNavigateLogin, onNavigateSignUp, onLogout }) {
+  const userName = currentUser?.fullName || currentUser?.name || 'Candidate';
+  const userInitial = userName.charAt(0).toUpperCase();
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-md border-b border-slate-200/80">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           
@@ -35,39 +38,66 @@ export default function LandingNavbar({ onNavigateDashboard, onNavigateLogin, on
             <a href="#contact" className="hover:text-violet-600 transition-colors">Contact</a>
           </nav>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - Conditional Header for Authenticated vs Unauthenticated Users */}
           <div className="flex items-center space-x-3">
-            
-            {/* Demo Workspace Link */}
-            <button
-              type="button"
-              onClick={onNavigateDashboard}
-              className="hidden lg:inline-flex items-center text-xs font-bold text-slate-600 hover:text-violet-600 bg-slate-100 hover:bg-violet-50 px-3.5 py-2 rounded-xl border border-slate-200/80 transition-all cursor-pointer"
-            >
-              <LayoutDashboard className="w-3.5 h-3.5 mr-1 text-violet-600" />
-              <span>Demo</span>
-            </button>
+            {currentUser ? (
+              <>
+                {/* User Profile Badge */}
+                <div 
+                  onClick={onNavigateDashboard}
+                  className="flex items-center space-x-2 bg-violet-50 border border-violet-200 px-3 py-1.5 rounded-2xl cursor-pointer hover:bg-violet-100 transition-colors"
+                >
+                  <div className="w-7 h-7 rounded-full bg-violet-600 text-white font-bold text-xs flex items-center justify-center shadow-xs">
+                    {userInitial}
+                  </div>
+                  <span className="text-xs font-bold text-violet-900 hidden sm:inline">{userName}</span>
+                </div>
 
-            {/* Sign In Button */}
-            <button
-              type="button"
-              onClick={onNavigateLogin}
-              className="inline-flex items-center text-xs font-bold text-slate-700 hover:text-violet-600 px-3.5 py-2 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer"
-            >
-              <LogIn className="w-3.5 h-3.5 mr-1 text-violet-600" />
-              <span>Sign In</span>
-            </button>
+                {/* Primary "Go to Dashboard" Action Button */}
+                <button
+                  type="button"
+                  onClick={onNavigateDashboard}
+                  className="inline-flex items-center justify-center px-4 py-2.5 rounded-2xl text-xs font-black text-white bg-violet-600 hover:bg-violet-700 active:bg-violet-800 shadow-md shadow-violet-600/25 transition-all duration-200 cursor-pointer transform hover:-translate-y-0.5"
+                >
+                  <LayoutDashboard className="w-3.5 h-3.5 mr-1.5" />
+                  <span>Go to Dashboard</span>
+                </button>
 
-            {/* Sign Up Free Button */}
-            <button
-              type="button"
-              onClick={onNavigateSignUp}
-              className="inline-flex items-center justify-center px-4 py-2.5 rounded-2xl text-xs font-black text-white bg-violet-600 hover:bg-violet-700 active:bg-violet-800 shadow-md shadow-violet-600/25 transition-all duration-200 cursor-pointer transform hover:-translate-y-0.5"
-            >
-              <UserPlus className="w-3.5 h-3.5 mr-1.5" />
-              <span>Sign Up Free</span>
-            </button>
+                {/* Explicit Logout Button */}
+                {onLogout && (
+                  <button
+                    type="button"
+                    onClick={onLogout}
+                    className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer"
+                    title="Logout Account"
+                  >
+                    <LogOut className="w-4.5 h-4.5" />
+                  </button>
+                )}
+              </>
+            ) : (
+              <>
+                {/* Sign In Button */}
+                <button
+                  type="button"
+                  onClick={onNavigateLogin}
+                  className="inline-flex items-center text-xs font-bold text-slate-700 hover:text-violet-600 px-3.5 py-2 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer"
+                >
+                  <LogIn className="w-3.5 h-3.5 mr-1 text-violet-600" />
+                  <span>Sign In</span>
+                </button>
 
+                {/* Sign Up Free Button */}
+                <button
+                  type="button"
+                  onClick={onNavigateSignUp}
+                  className="inline-flex items-center justify-center px-4 py-2.5 rounded-2xl text-xs font-black text-white bg-violet-600 hover:bg-violet-700 active:bg-violet-800 shadow-md shadow-violet-600/25 transition-all duration-200 cursor-pointer transform hover:-translate-y-0.5"
+                >
+                  <UserPlus className="w-3.5 h-3.5 mr-1.5" />
+                  <span>Sign Up Free</span>
+                </button>
+              </>
+            )}
           </div>
 
         </div>

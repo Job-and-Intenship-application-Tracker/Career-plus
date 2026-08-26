@@ -245,9 +245,11 @@ export default function App() {
   if (currentView === 'landing') {
     return (
       <LandingPage
-        onNavigateDashboard={() => setCurrentView(currentUser ? 'dashboard' : 'login')}
-        onNavigateLogin={() => setCurrentView('login')}
-        onNavigateSignUp={() => setCurrentView('signup')}
+        currentUser={currentUser}
+        onNavigateDashboard={() => setCurrentView('dashboard')}
+        onNavigateLogin={() => setCurrentView(currentUser ? 'dashboard' : 'login')}
+        onNavigateSignUp={() => setCurrentView(currentUser ? 'dashboard' : 'signup')}
+        onLogout={handleLogout}
       />
     );
   }
