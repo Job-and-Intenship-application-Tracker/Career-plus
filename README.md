@@ -1,67 +1,74 @@
-# 🚀 Career Plus - Job & Internship Application Tracker
+# CareerPlus - Full Stack Job & Internship Tracker (Microservices Architecture)
 
-**Career Plus** is a full-stack job application tracking platform built with **React (Vite + Tailwind CSS)** on the frontend and **Spring Boot (Java 17 + JPA)** backed by **SQLite** on the backend.
-
----
-
-## 🌟 Key Features
-
-- **6-Step Sequential Application Wizard**: Company & Job Info, Recruiter Details, Compensation & Resume Upload, Interview Details, Skills & Notes, and Final Summary Review.
-- **Manual & Profile Resume Uploads**: Browse and attach `.pdf`, `.doc`, or `.docx` files directly from your computer or select stored resumes from your profile.
-- **Status Filter Focused Column Zoom Mode**: Selecting a stage (`Applied`, `Interviewing`, `Offered`, `Rejected`) zooms and highlights that specific column while smoothly dimming others.
-- **LPA Salary Format**: Input compensation in Lakhs Per Annum (`e.g. 12 LPA`).
-- **Real-time Notes Drawer**: Edit existing notes and append new application logs in real-time.
-- **Full REST Integration & Security**: BCrypt password hashing, JWT Bearer Token authentication, Google OAuth 2.0 integration, and instant SQLite persistence.
+CareerPlus is an enterprise full-stack application tracking platform built with **React, Tailwind CSS, Spring Boot Microservices, Spring Cloud Gateway, and SQLite**.
 
 ---
 
-## 📂 Repository Structure
+## 🏛️ Microservices & API Gateway Architecture
 
-```text
-Career-plus/
-├── frontend/                 # React (Vite + Tailwind CSS)
-│   ├── src/
-│   │   ├── components/       # Modals, Kanban Board, Job Cards, Navbar
-│   │   ├── pages/            # Landing Page, Login, Sign Up
-│   │   └── services/         # REST API Integration Helper (api.js)
-│   ├── index.html
-│   ├── package.json
-│   └── vite.config.js
-└── backend/                  # Spring Boot (Java 17 + SQLite)
-    ├── src/
-    │   ├── main/java/com/careerplus/
-    │   │   ├── config/       # Spring Security & JWT Config
-    │   │   ├── controller/   # REST Controllers (Auth, Applications, Resumes)
-    │   │   ├── dto/          # Data Transfer Objects
-    │   │   ├── model/        # JPA Entities (User, Application, Resume)
-    │   │   └── repository/   # Spring Data Repositories
-    │   └── resources/
-    │       └── application.properties
-    ├── career_plus.db        # SQLite Database File
-    └── pom.xml
+The backend is decomposed into 3 decoupled Spring Boot Microservices:
+
+```
+                               React Frontend (Port 3000)
+                                           │
+                                           ▼
+                          ┌─────────────────────────────────┐
+                          │     API Gateway (Port 8080)     │
+                          └────────────────┬────────────────┘
+                                           │
+             ┌─────────────────────────────┴─────────────────────────────┐
+             ▼                                                           ▼
+┌─────────────────────────┐                                 ┌─────────────────────────┐
+│  Auth Service (Port 8081)│                                 │ App Service (Port 8082) │
+│  - User Authentication  │                                 │ - Applications & Cards  │
+│  - JWT & Google OAuth   │                                 │ - Resumes & Analytics   │
+│  - SQLite auth.db       │                                 │ - SQLite app.db         │
+└─────────────────────────┘                                 └─────────────────────────┘
 ```
 
 ---
 
-## 🛠️ Quick Setup & Run Instructions
+## 🚀 Services Overview
 
-### 1. Run React Frontend (Port 3000)
-```bash
-cd frontend
-npm install
-npm run dev
-```
-Open **[http://localhost:3000/](http://localhost:3000/)** in your browser.
+### 1. `api-gateway` (Port 8080 - Central Gateway)
+- **Role**: Central entry point for all frontend API calls.
+- **Routing Rules**:
+  - `/api/auth/**` $\rightarrow$ `http://localhost:8081` (`auth-service`)
+  - `/api/applications/**` $\rightarrow$ `http://localhost:8082` (`application-service`)
+  - `/api/users/**` $\rightarrow$ `http://localhost:8082` (`application-service`)
 
-### 2. Run Spring Boot Backend (Port 8080)
-```bash
-cd backend
-mvn spring-boot:run
-```
-*(Or import `backend/` into Spring Tool Suite / Eclipse and run as Spring Boot App).*
+### 2. `auth-service` (Port 8081 - Authentication Microservice)
+- **Role**: Dedicated microservice for User Registration, Login, Password Reset, BCrypt Hashing, Google OAuth Sync, and JWT Token Issuance.
+- **Database**: SQLite (`auth_service.db`)
+
+### 3. `application-service` (Port 8082 - Core Application & Balance Microservice)
+- **Role**: Dedicated microservice for 6-Step Job Applications, Kanban Stages, Recruiter Follow-ups, Resumes, Priority Engine, and Analytics.
+- **Database**: SQLite (`application_service.db`)
 
 ---
 
-## 🔒 License & Copyright
+## 🛠️ How to Run Microservices
 
-© 2026 **Career Plus Team**. All Rights Reserved.
+1. **Start Auth Service**:
+   ```bash
+   cd backend/services/auth-service
+   mvn spring-boot:run
+   ```
+
+2. **Start Application Service**:
+   ```bash
+   cd backend/services/application-service
+   mvn spring-boot:run
+   ```
+
+3. **Start API Gateway**:
+   ```bash
+   cd backend/services/api-gateway
+   mvn spring-boot:run
+   ```
+
+4. **Start React Frontend**:
+   ```bash
+   cd frontend
+   npm run dev
+   ```
