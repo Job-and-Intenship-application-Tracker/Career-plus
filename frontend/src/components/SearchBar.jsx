@@ -1,7 +1,7 @@
 import React from 'react';
-import { Search, Filter, SlidersHorizontal, LayoutGrid, ListFilter, Plus, X } from 'lucide-react';
+import { Search, Filter, SlidersHorizontal, LayoutGrid, ListFilter, X } from 'lucide-react';
 
-export default function SearchBar({ searchQuery, setSearchQuery, statusFilter = 'all', setStatusFilter, onOpenAddModal }) {
+export default function SearchBar({ searchQuery, setSearchQuery, statusFilter = 'all', setStatusFilter, sortBy = 'newest', setSortBy }) {
   return (
     <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs mb-6">
       <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
@@ -30,7 +30,7 @@ export default function SearchBar({ searchQuery, setSearchQuery, statusFilter = 
           )}
         </div>
 
-        {/* Filter Controls & Add Button */}
+        {/* Filter Controls & Sort Options */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0">
           
           {/* Status Filter Select (Triggers Column Zoom & Focus Mode) */}
@@ -50,17 +50,24 @@ export default function SearchBar({ searchQuery, setSearchQuery, statusFilter = 
             <Filter className="w-3.5 h-3.5 text-violet-600 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
 
-          {/* Sort Select */}
+          {/* Multi-Criteria Sort Select */}
           <div className="relative">
             <select 
               id="sort-select"
-              className="appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold py-2.5 pl-3 pr-8 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 cursor-pointer"
+              value={sortBy}
+              onChange={(e) => setSortBy && setSortBy(e.target.value)}
+              className="appearance-none bg-slate-50 border border-slate-200 hover:border-violet-300 text-slate-800 text-xs font-bold py-2.5 pl-3 pr-8 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 cursor-pointer transition-all shadow-2xs"
             >
-              <option value="newest">Sort: Newest First</option>
-              <option value="company">Sort: Company (A-Z)</option>
-              <option value="salary">Sort: Highest Salary</option>
+              <option value="newest">📅 Sort: Newest First</option>
+              <option value="oldest">📅 Sort: Oldest First</option>
+              <option value="company-asc">🏢 Sort: Company (A - Z)</option>
+              <option value="company-desc">🏢 Sort: Company (Z - A)</option>
+              <option value="role-asc">💼 Sort: Job Role (A - Z)</option>
+              <option value="salary-desc">💰 Sort: Salary (Highest First)</option>
+              <option value="salary-asc">💰 Sort: Salary (Lowest First)</option>
+              <option value="priority">⚡ Sort: Priority (High First)</option>
             </select>
-            <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <SlidersHorizontal className="w-3.5 h-3.5 text-violet-600 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
 
           {/* View Switcher Toggle */}
@@ -82,16 +89,6 @@ export default function SearchBar({ searchQuery, setSearchQuery, statusFilter = 
               <span className="hidden sm:inline">List</span>
             </button>
           </div>
-
-          {/* Secondary Add Application Button */}
-          <button
-            type="button"
-            onClick={onOpenAddModal}
-            className="hidden sm:inline-flex items-center justify-center px-3 py-2.5 rounded-xl text-xs font-bold text-violet-700 bg-violet-50 hover:bg-violet-100 border border-violet-200 transition-colors cursor-pointer"
-          >
-            <Plus className="w-3.5 h-3.5 mr-1" />
-            <span>New Card</span>
-          </button>
 
         </div>
 

@@ -48,6 +48,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('kanban'); // kanban | actions | priority | reminders | analytics
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all'); // 'all' | 'applied' | 'interviewing' | 'offered' | 'rejected'
+  const [sortBy, setSortBy] = useState('newest'); // 'newest' | 'oldest' | 'company-asc' | 'company-desc' | 'role-asc' | 'salary-desc' | 'salary-asc' | 'priority'
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
@@ -400,11 +401,14 @@ export default function App() {
               setSearchQuery={setSearchQuery} 
               statusFilter={statusFilter}
               setStatusFilter={setStatusFilter}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
               onOpenAddModal={handleOpenAddModal}
             />
             <KanbanBoard 
               searchQuery={searchQuery}
               statusFilter={statusFilter}
+              sortBy={sortBy}
               jobs={jobs}
               onAddCard={handleOpenAddModal}
               onSelectJob={(job) => setSelectedJob(job)}
