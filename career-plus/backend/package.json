@@ -1,0 +1,16 @@
+{
+  "name": "career-plus-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Career Plus on Cloud Run",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@google-cloud/logging-winston": "^6.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.7",
+    "winston": "^3.13.0"
+  }
+}
