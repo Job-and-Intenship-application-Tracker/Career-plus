@@ -1,0 +1,40 @@
+# Maven / Gradle build outputs
+target/
+build/
+out/
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE & Editor
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.eclipse/
+*.classpath
+*.project
+*.settings/
+
+# Environment & Secrets
+.env
+.env.local
+application-local.properties
+application-secret.properties
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Spring Boot DevTools
+spring-devtools.properties
