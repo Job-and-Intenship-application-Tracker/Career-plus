@@ -1,0 +1,9 @@
+node_modules/
+dist/
+target/
+.classpath
+.project
+.settings/
+career_plus.db
+*.log
+.DS_Store
